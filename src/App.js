@@ -78,7 +78,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h3>"Aaron's Verson"</h3>
+          <h3>{"Aaron's Verson"}</h3>
         </div>
         <div className="App-content">
           <table>
