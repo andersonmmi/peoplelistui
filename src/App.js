@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Web3 from 'web3';
+import _ from 'lodash';
 
 let ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 let peopleContractABI = [
@@ -36,7 +37,7 @@ let peopleContractABI = [
   }
 ];
 let peopleContractAddress = '0x7a7e1a11b22322418d670c6e1f984cf8f8f02d25';
-let peopleContract = new ETHEREUM_CLIENT.eth.Contract(peopleContractABI,peopleContractAddress);
+let peopleContract = ETHEREUM_CLIENT.eth.contract(peopleContractABI).at(peopleContractAddress);
 
 class App extends Component {
   constructor(props){
@@ -49,7 +50,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    var data = peopleContract.methods.getPeople();
+    var data = peopleContract.getPeople();
     this.setState({
       firstNames: String(data[0]).split(','),
       lastNames: String(data[1]).split(','),
@@ -60,15 +61,38 @@ class App extends Component {
   }
 
   render() {
+
+    let TableRows = []
+
+    _.each(this.state.firstNames, (value, index) => {
+      TableRows.push(
+        <tr key={index}>
+          <td>{ETHEREUM_CLIENT.toAscii(this.state.firstNames[index])}</td>
+          <td>{ETHEREUM_CLIENT.toAscii(this.state.lastNames[index])}</td>
+          <td>{this.state.ages[index]}</td>
+        </tr>
+      )
+    })
+
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          <h3>"Aaron's Verson"</h3>
         </div>
         <div className="App-content">
-          <pre>{this.state.firstNames}</pre>
-          <pre>{this.state.lastNames}</pre>
-          <pre>{this.state.ages}</pre>
+          <table>
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+              </tr>
+            </thead>
+            <tbody>
+              {TableRows}
+            </tbody>
+          </table>
         </div>
       </div>
     );
