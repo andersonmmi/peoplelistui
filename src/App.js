@@ -4,7 +4,7 @@ import './App.css';
 import Web3 from 'web3';
 import _ from 'lodash';
 
-let ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
+let ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"))
 let peopleContractABI = [
   { "constant":true,"inputs":[],
     "name":"getPeople","outputs":[
@@ -36,7 +36,7 @@ let peopleContractABI = [
     "type":"function"
   }
 ];
-let peopleContractAddress = '0x7a7e1a11b22322418d670c6e1f984cf8f8f02d25';
+let peopleContractAddress = '0xddff46dc8686cc18c40489e56b2443a897ed6bd8';
 let peopleContract = ETHEREUM_CLIENT.eth.contract(peopleContractABI).at(peopleContractAddress);
 
 class App extends Component {
