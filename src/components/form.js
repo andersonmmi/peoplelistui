@@ -55,25 +55,8 @@ class Form extends Component {
     }
   }
   handleSubmit = (event) => {
-    let api ='https://tiny-lasagna-server.herokuapp.com/collections/playlisting';
-    let listItem = JSON.stringify(this.state);
-    request
-      .post(api)
-      .send(listItem)
-      .set('Accept', 'application/json')
-      .set('Content-Type', 'application/json')
-      .end((err,res) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("Success");
-          }
-        })
-    this.setState({
-      firstName: '',
-      lastName: '',
-      age: 0,
-    })
+    var payload = JSON.stringify(this.state);
+    console.log(payload);
   }
 
   render() {
