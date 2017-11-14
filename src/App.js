@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Web3 from 'web3';
 import _ from 'lodash';
+import Form from './components/form.js';
 
 let ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"))
 let peopleContractABI = [
@@ -78,9 +79,10 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h3>{"Aaron's Verson"}</h3>
+          <h3>{"Aaron's Blockchain People Database Extrodinaire!"}</h3>
         </div>
         <div className="App-content">
+          <Form/>
           <table>
             <thead>
               <tr>

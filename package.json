@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "lodash": "^4.17.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.15",
-    "web3": "0.20.1",
-    "lodash": "^4.17.4"
+    "superagent": "^3.8.1",
+    "web3": "0.20.1"
   },
   "scripts": {
     "start": "react-scripts start",
