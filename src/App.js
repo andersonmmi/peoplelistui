@@ -37,7 +37,7 @@ let peopleContractABI = [
     "type":"function"
   }
 ];
-let peopleContractAddress = '0xddff46dc8686cc18c40489e56b2443a897ed6bd8';
+let peopleContractAddress = '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf';
 let peopleContract = ETHEREUM_CLIENT.eth.contract(peopleContractABI).at(peopleContractAddress);
 
 class App extends Component {

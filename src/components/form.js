@@ -34,7 +34,7 @@ let peopleContractABI = [
     "type":"function"
   }
 ];
-let peopleContractAddress = '0xddff46dc8686cc18c40489e56b2443a897ed6bd8';
+let peopleContractAddress = '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf';
 let peopleContract = ETHEREUM_CLIENT.eth.contract(peopleContractABI).at(peopleContractAddress);
 
 class Form extends Component {
@@ -43,11 +43,12 @@ class Form extends Component {
     this.state={
       firstName: '',
       lastName: '',
-      age: 0,
+      age: '',
     }
     this.handleTextChange=this.handleTextChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
   }
+
   handleTextChange = (event) => {
     event.preventDefault();
     if (this.state[event.target.id] !== undefined){
@@ -55,8 +56,13 @@ class Form extends Component {
     }
   }
   handleSubmit = (event) => {
-    var payload = JSON.stringify(this.state);
+    var payload1 = ETHEREUM_CLIENT.fromAscii(this.state.firstName,32);
+    var payload2 = ETHEREUM_CLIENT.fromAscii(this.state.lastName,32);
+    var payload3 = ETHEREUM_CLIENT.toBigNumber(this.state.age);
+    var payload = ("'" + payload1 + "','" + payload2 + "',"+ payload3);
     console.log(payload);
+    // peopleContract.addPerson(payload1, payload2, payload3);
+    console.log(peopleContract.addPerson);
   }
 
   render() {
@@ -69,17 +75,17 @@ class Form extends Component {
         <form>
           <label>
             First Name:
-            <input id="firstName" onChange={this.handleTextChange} type="text" value={this.state.userName}/>
+            <input id="firstName" onChange={this.handleTextChange} type="text" value={this.state.firstName}/>
           </label>
           <hr/>
           <label>
             Last Name:
-            <input id="lastName" onChange={this.handleTextChange} type="text" value={this.state.songArtist}/>
+            <input id="lastName" onChange={this.handleTextChange} type="text" value={this.state.lastName}/>
           </label>
           <hr />
           <label>
             Age:
-            <input id="age" onChange={this.handleTextChange} type="text" value={this.state.songTitle}/>
+            <input id="age" onChange={this.handleTextChange} type="text" value={this.state.age}/>
           </label>
           <hr />
           <input id="submit" type="button" value="Submit" onClick={this.handleSubmit}/>
