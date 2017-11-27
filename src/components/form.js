@@ -36,6 +36,8 @@ let peopleContractABI = [
 ];
 let peopleContractAddress = '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf';
 let peopleContract = ETHEREUM_CLIENT.eth.contract(peopleContractABI).at(peopleContractAddress);
+// let addPersonInstance = '';
+ETHEREUM_CLIENT.eth.defaultAccount = ETHEREUM_CLIENT.eth.coinbase;
 
 class Form extends Component {
   constructor(props){
@@ -61,8 +63,17 @@ class Form extends Component {
     var payload3 = ETHEREUM_CLIENT.toBigNumber(this.state.age);
     var payload = ("'" + payload1 + "','" + payload2 + "',"+ payload3);
     console.log(payload);
-    // peopleContract.addPerson(payload1, payload2, payload3);
-    console.log(peopleContract.addPerson);
+    console.log(ETHEREUM_CLIENT.eth.defaultAccount);
+    peopleContract.addPerson(payload1, payload2, payload3)
+    // .then(function(result){
+    //   console.log(result);
+    // });
+
+      this.setState({
+        firstName: '',
+        lastName: '',
+        age: '',
+      });
   }
 
   render() {
