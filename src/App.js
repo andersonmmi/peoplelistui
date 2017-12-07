@@ -46,10 +46,13 @@ class App extends Component {
     this.state = {
       firstNames: [],
       lastNames: [],
-      ages: []
+      ages: [],
+      transactionTime: '',
     }
   }
-
+  // updateTransactionTime()=>{
+  //
+  // }
   componentWillMount() {
     var data = peopleContract.getPeople();
     this.setState({
@@ -82,7 +85,7 @@ class App extends Component {
           <h3>{"Aaron's Blockchain People Database Extrodinaire!"}</h3>
         </div>
         <div className="App-content">
-          <Form/>
+          <Form updateTransactionTime={this.state.updateTransactionTime}/>
           <table>
             <thead>
               <tr>

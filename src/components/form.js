@@ -67,12 +67,12 @@ class Form extends Component {
     // .then(function(result){
     //   console.log(result);
     // });
-
-      this.setState({
-        firstName: '',
-        lastName: '',
-        age: '',
-      });
+    this.setState({
+      firstName: '',
+      lastName: '',
+      age: '',
+    });
+    // this.props.updateTransactionTime();
   }
 
   render() {
