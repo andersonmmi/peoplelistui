@@ -1,6 +1,11 @@
 .App {
   text-align: center;
 }
+.App-table-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

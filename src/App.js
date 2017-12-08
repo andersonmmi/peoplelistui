@@ -86,18 +86,20 @@ class App extends Component {
         </div>
         <div className="App-content">
           <Form updateTransactionTime={this.state.updateTransactionTime}/>
-          <table>
-            <thead>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Age</th>
-              </tr>
-            </thead>
-            <tbody>
-              {TableRows}
-            </tbody>
-          </table>
+          <div className="App-table-div">
+              <table className="App-table">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {TableRows}
+                </tbody>
+              </table>
+          </div>
         </div>
       </div>
     );
