@@ -5,40 +5,89 @@ import Web3 from 'web3';
 import _ from 'lodash';
 import Form from './components/form.js';
 
-let ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"))
+let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"))
 let peopleContractABI = [
-  { "constant":true,"inputs":[],
-    "name":"getPeople","outputs":[
-      {"name":"","type":"bytes32[]"},
-      {"name":"","type":"bytes32[]"},
-      {"name":"","type":"uint256[]"}
-    ],
-    "payable":false,
-    "type":"function"
-  },
-  {"constant":false,"inputs":[
-      {"name":"_firstName","type":"bytes32"},
-      {"name":"_lastName","type":"bytes32"},
-      {"name":"_age","type":"uint256"}
-    ],
-    "name":"addPerson",
-    "outputs":[{"name":"success","type":"bool"}],
-    "payable":false,"type":"function"},
-    {"constant":true,"inputs":[
-      {"name":"","type":"uint256"}
-    ],
-    "name":"people",
-    "outputs":[
-      {"name":"firstName","type":"bytes32"},
-      {"name":"lastName","type":"bytes32"},
-      {"name":"age","type":"uint256"}
-    ],
-    "payable":false,
-    "type":"function"
-  }
-];
-let peopleContractAddress = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
-let peopleContract = ETHEREUM_CLIENT.eth.contract(peopleContractABI).at(peopleContractAddress);
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPeople",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        },
+        {
+          "name": "",
+          "type": "bytes32[]"
+        },
+        {
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "payable": false,
+      "type": "function",
+      "stateMutability": "view"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_firstName",
+          "type": "bytes32"
+        },
+        {
+          "name": "_lastName",
+          "type": "bytes32"
+        },
+        {
+          "name": "_age",
+          "type": "uint256"
+        }
+      ],
+      "name": "addPerson",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function",
+      "stateMutability": "nonpayable"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "people",
+      "outputs": [
+        {
+          "name": "firstName",
+          "type": "bytes32"
+        },
+        {
+          "name": "lastName",
+          "type": "bytes32"
+        },
+        {
+          "name": "age",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function",
+      "stateMutability": "view"
+    }
+  ];
+let peopleContractAddress = '0xfb88de099e13c3ed21f80a7a1e49f8caecf10df6';
+let peopleContract = web3.eth.contract(peopleContractABI).at(peopleContractAddress);
+web3.eth.defaultAccount = web3.eth.accounts[0];
+let balance = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase)).toString();
 
 class App extends Component {
   constructor(props){
@@ -47,7 +96,7 @@ class App extends Component {
       firstNames: [],
       lastNames: [],
       ages: [],
-      transactionTime: '',
+    //  transactionTime: '',
     }
   }
   // updateTransactionTime()=>{
@@ -71,8 +120,8 @@ class App extends Component {
     _.each(this.state.firstNames, (value, index) => {
       TableRows.push(
         <tr key={index}>
-          <td>{ETHEREUM_CLIENT.toAscii(this.state.firstNames[index])}</td>
-          <td>{ETHEREUM_CLIENT.toAscii(this.state.lastNames[index])}</td>
+          <td>{web3.toAscii(this.state.firstNames[index])}</td>
+          <td>{web3.toAscii(this.state.lastNames[index])}</td>
           <td>{this.state.ages[index]}</td>
         </tr>
       )
@@ -85,6 +134,7 @@ class App extends Component {
           <h3>{"Aaron's Blockchain People Database Extrodinaire!"}</h3>
         </div>
         <div className="App-content">
+          <p>{balance}</p>
           <Form updateTransactionTime={this.state.updateTransactionTime}/>
           <div className="App-table-div">
               <table className="App-table">
